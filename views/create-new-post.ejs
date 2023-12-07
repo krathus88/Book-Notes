@@ -1,13 +1,51 @@
 <%- include("partials/header.ejs") %>
         <!-- Create new post -->
         <div class="container px-4">
-            <form action="/" method="POST">
-                <div class="mb-3">
-                    <input class="form-control form-control-lg" name="tTitle" aria-describedby="emailHelp" placeholder="Enter an amazing title for your post!" required>
-                    <small class="form-text text-muted ms-2">I'm sure everyone will love to hear what you have to say</small>
+            <form action="/publish-thoughts" method="POST">
+                <h4 style="margin-left: 0.5rem">Author</h4>
+                <hr style="margin-top: 0px;">
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        <select class="form-select form-select-lg" name="authorId" id="SelectAuthor">
+                            <option>OLID</option>
+                            <option>ID</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control form-control-lg" name="authorValue" placeholder="Value" required>
+                    </div>
+                    <div class="col-md-7 mb-3">
+                        <input class="form-control form-control-lg" name="authorName" aria-describedby="emailHelp" placeholder="Author's Name" required>
+                    </div>
+                </div>
+                <h4 style="margin-left: 0.5rem; margin-top: 1rem;">Book</h4>
+                <hr style="margin-top: 0px;">
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        <select class="form-select form-select-lg" name="bookId" id="SelectBook">
+                            <option>ISBN</option>
+                            <option>OCLC</option>
+                            <option>LCCN</option>
+                            <option>OLID</option>
+                            <option>ID</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control form-control-lg" name="bookValue" placeholder="Value" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <input class="form-control form-control-lg" name="bookDateRead" aria-describedby="emailHelp" placeholder="Date Read" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control form-control-lg" name="bookRating" aria-describedby="emailHelp" placeholder="Rating (out of 10)" required>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control" name="tBody" rows="10" placeholder="Follow up with your startling thoughts!" required></textarea>
+                    <input class="form-control form-control-lg" name="bookTitle" aria-describedby="emailHelp" placeholder="Book's Title" required>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" name="userInput" rows="10" placeholder="Follow up with your startling thoughts!" required></textarea>
+                    <small class="form-text text-muted ms-2">I'm sure everyone will love to hear what you have to say</small>
                 </div>
                 <button type="submit" class="btn float-end me-4">Publish your thoughts</button>
             </form>
