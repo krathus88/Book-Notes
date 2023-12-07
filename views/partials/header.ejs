@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/main.css">
+    <title>Marco's Blog</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <script>
+        // Check for a stored theme in localStorage and apply it before page load
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme === "dark") {
+            document.querySelector("html").setAttribute("data-bs-theme", storedTheme);
+        }
+    </script>
+    <header>
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none ps-2" <%= activePage === 'Home' ? 'aria-current=page' : '' %>>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-journal-code" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8.646 5.646a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 8 8.646 6.354a.5.5 0 0 1 0-.708zm-1.292 0a.5.5 0 0 0-.708 0l-2 2a.5.5 0 0 0 0 .708l2 2a.5.5 0 0 0 .708-.708L5.707 8l1.647-1.646a.5.5 0 0 0 0-.708z"/>
+                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                    </svg>
+                    <span class="ms-3 fs-4">Marco's Blog</span>
+                </a>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a href="/create-new-post" class="nav-link<%= activePage === 'CreateNewPost' ? ' active' : '' %>" <%= activePage === 'CreateNewPost' ? 'aria-current=page' : '' %>>
+                            <%= activePage === 'CreateNewPost' ? 'Currently Writting the most Thrilling Post!' : 'Create New Post' %>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/about" class="nav-link<%= activePage === 'About' ? ' active' : '' %>" <%= activePage === 'About' ? 'aria-current=page' : '' %>>About</a>
+                    </li>
+                    <!-- Toggle theme -->
+                    <li class="nav-item dropdown">
+                        <!-- Current theme -->
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme">
+                            <img src="/images/light-mode.svg" id="current-theme-icon" alt="Light mode">
+                            <span class="d-lg-none ms-2">Toggle theme</span>
+                        </a>
+                        <!-- Dropdown menu with Dark / Light theme options -->
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <button type="button" class="dropdown-item d-flex align-items-center" aria-pressed="true" onclick="switchTheme('light')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun-fill" viewBox="0 0 16 16">
+                                        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+                                    </svg>
+                                    <span class="ms-2">Light</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item d-flex align-items-center"  aria-pressed="false" onclick="switchTheme('dark')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
+                                        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+                                    </svg>
+                                    <span class="ms-2">Dark</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+              </ul>
+            </div>
+        </div>    
+    </header>
+    <main>

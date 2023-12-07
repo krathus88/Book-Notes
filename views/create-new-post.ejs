@@ -1,0 +1,15 @@
+<%- include("partials/header.ejs") %>
+        <!-- Create new post -->
+        <div class="container px-4">
+            <form action="/" method="POST">
+                <div class="mb-3">
+                    <input class="form-control form-control-lg" name="tTitle" aria-describedby="emailHelp" placeholder="Enter an amazing title for your post!" required>
+                    <small class="form-text text-muted ms-2">I'm sure everyone will love to hear what you have to say</small>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" name="tBody" rows="10" placeholder="Follow up with your startling thoughts!" required></textarea>
+                </div>
+                <button type="submit" class="btn float-end me-4">Publish your thoughts</button>
+            </form>
+        </div>
+<%- include("partials/footer.ejs") %>

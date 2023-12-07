@@ -1,0 +1,89 @@
+html:not([data-bs-theme="dark"]) body {
+    background: #ECE9E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+html:not([data-bs-theme="dark"]) .border {
+    border-color: #c0c1c5!important;
+}
+
+html:not([data-bs-theme="dark"]) .form-control {
+    border-color: #c0c1c5!important;
+}
+
+html:not([data-bs-theme="dark"]) .border-bottom {
+    border-color: #c0c1c5!important;
+}
+
+html:not([data-bs-theme="dark"]) .border-top {
+    border-color: #c0c1c5!important;
+}
+
+html:not([data-bs-theme="dark"]) footer {
+    background-color: #343434;
+    color: white;
+}
+
+html:not([data-bs-theme="dark"]) .background-color {
+    --bs-bg-opacity: 1;
+    background-color: #ECE9E6;
+}
+
+.nav-pills {
+    --bs-nav-pills-link-active-bg: #bb86fc;
+}
+
+.nav {
+    --bs-nav-link-color: #bb86fc;
+    --bs-nav-link-hover-color: #9067c1;
+}
+
+.btn {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #bb86fc;
+    --bs-btn-hover-bg: #9067c1;
+    --bs-btn-active-bg: #7a57a5;
+    --bs-btn-active-border-color: #7a57a5;
+}
+
+.editBtn {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: #bb86fc;
+    --bs-btn-hover-bg: #9067c1;
+    --bs-btn-active-bg: #7a57a5;
+    --bs-btn-active-border-color: #7a57a5;
+}
+
+.deleteBtnColor {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: #ff4343;
+    --bs-btn-hover-bg: #ff4343;
+    --bs-btn-active-bg: #c20000;
+    --bs-btn-active-border-color: #970000;
+}
+
+.cancelEditBtn {
+    color: #ff4343;
+}
+
+ul {
+    list-style: none;
+    padding-right: 2rem;
+}
+
+.blur {
+    filter: blur(3px);
+}
+
+.background-color {
+    --bs-bg-opacity: 1;
+    background-color: #212529;
+}
+
+.non-interactive {
+    pointer-events: none;
+    user-select: none;
+}
