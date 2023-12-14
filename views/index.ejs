@@ -1,42 +1,62 @@
 <%- include("partials/header.ejs") %>
-        <!-- stuff -->
-        <div class="container px-4">
-            <% if (textTitle.length > 0) { %>
-                <ul style="padding-left: 0px; padding-right: 0px;">
-                    <% for(let i=0; i<textTitle.length; i++) { %>
-                        <!-- Blog Post -->
-                        <li id="post<%= i %>" class="border position-relative rounded-3 px-4 pt-3 pb-2 mb-4">
-                            <h1 class="ps-2" name="post<%= i %>"><%- textTitle[i] %></h1>
-                            <hr>
-                            <div id="textContainer<%= i %>">
-                                <!-- Displayed Text | Default: shown -->
-                                <p class="mb-4" id="post<%= i %>Body"><%- textBody[i].replace(/\n/g, '<br>') %></p>
-                                <!-- Edit Text | Default: not shown -->
-                                <textarea style="display: none;" class="form-control mb-4" id="post<%= i %>BodyEdit" name="tBody" placeholder="Follow up with your startling thoughts!"><%- textBody[i] %></textarea>
-                                <!-- Buttons -->
-                                <div id="mainButtonsContainer<%= i %>" class="position-absolute bottom-0 end-0">    
-                                    <!-- Cancel Edit Button | Default: not shown -->
-                                    <a style="display: none; font-size: 12px;" type="button" class="cancelEditBtn text-decoration-none" data-index="<%= i %>">Cancel</a>
-                                    <!-- Edit/Save Post Button | Default: shown -->
-                                    <button style="font-size: 12px;" class="btn editBtn ms-2" data-index="<%= i %>">Edit</button>
-                                    <!-- Delete Button | Default: shown -->
-                                    <button style="font-size: 12px;" class="btn deleteBtnColor xBtn" data-index="<%= i %>">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-                                        </svg>
-                                    </button>
+    <!-- stuff -->
+    <main class="container px-4">
+        <% if (books.length > 0) { %>
+            <ul style="padding-left: 0px; padding-right: 0px;">
+                <% for(let i=0; i<books.length; i++) { %>
+                    <li id="post<%= i %>" data-index="<%= books[i].id %>" class="border position-relative rounded-3 ps-0 pe-4 pt-0 mb-4">
+                        <div class="row">
+                            <!-- Image column -->
+                            <div class="col-md-2 border-end pe-0">
+                                <img src="https://covers.openlibrary.org/b/<%= books[i].book_value_type %>/<%= books[i].book_value %>-L.jpg" alt="Book Cover" class="img-fluid rounded-3 remove-top-right">
+                                <div class="container py-2" id="imageColumnText<%= i %>">
+                                    <p>Author:
+                                        <span><%= authors.find(author => author.id === books[i].author_id).author_name %></span>
+                                    </p>
+                                    <p>Read on: 
+                                        <span id="dateReadSpan<%= i %>"><%= new Date(books[i].book_date_read).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
+                                        <textarea style="display: none; resize: none;" rows="1" class="form-control mb-4" id="dateReadEdit<%= i %>" name="tDate"><%= new Date(books[i].book_date_read).toISOString().slice(0, 10) %></textarea>
+                                    </p>
+                                    <p>Would recommend?
+                                        <span id="recommendSpan<%= i %>"><%= books[i].book_rating %></span>
+                                        <textarea style="display: none; resize: none;" rows="1" class="form-control mb-4" id="recommendEdit<%= i %>" name="tRecommend"><%= books[i].book_rating %></textarea>
+                                        / 10</p>
+                                </div>
+                            </div>
+                            <!-- Text column -->
+                            <div class="col-md-10">
+                                <h1 class="ps-2 pt-3" name="post<%= i %>"><%- books[i].book_title %></h1>
+                                <hr>
+                                <div id="textContainer<%= i %>">
+                                    <!-- Displayed Text -->
+                                    <p class="mb-4" id="post<%= i %>Body"><%- books[i].user_input.replace(/\n/g, '<br>') %></p>
+                                    <!-- Edit Text | Default: not shown -->
+                                    <textarea style="display: none;" class="form-control mb-4" id="post<%= i %>BodyEdit" name="tBody"><%- books[i].user_input %></textarea>
+                                    <!-- Buttons -->
+                                    <div id="mainButtonsContainer<%= i %>" class="position-absolute bottom-0 end-0">    
+                                        <!-- Cancel Edit Button | Default: not shown -->
+                                        <a style="display: none; font-size: 12px;" type="button" class="cancelEditBtn text-decoration-none" data-index="<%= i %>">Cancel</a>
+                                        <!-- Edit/Save Post Button -->
+                                        <button style="font-size: 12px;" class="btn editBtn ms-2" data-index="<%= i %>">Edit</button>
+                                        <!-- Delete Button -->
+                                        <button style="font-size: 12px;" class="btn deleteBtnColor xBtn" data-index="<%= i %>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Delete Post Prompt | Default: not shown -->
                             <div style="display: none;" id="confirmDeleteContainer<%= i %>" class="position-absolute top-50 start-50 translate-middle p-0">
-                                <div class="d-flex flex-column align-items-center w-100 h-100 border rounded-3 p-3 background-color">
+                                <div class="d-flex flex-column align-items-center w-50 h-100 border rounded-3 p-3 background-color mx-auto">
                                     <p>Are you sure you wish to delete this post?</p>
                                     <div class="d-flex justify-content-center">
-                                        <input type="hidden" name="index" value="<%= i %>">
                                         <button style="width: 100px;" class="btn keepBtn me-2" data-index="<%= i %>">
                                             Keep
                                         </button>
-                                        <form action="/deletePost" method="post">
+                                        <form action="/deletePost" method="post">                                        
+                                            <input type="hidden" name="id" value="<%= books[i].id %>">
                                             <button style="width: 100px;" type="submit" class="btn deleteBtnColor">
                                                 Delete
                                             </button>
@@ -44,13 +64,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                    <% } %>
-                </ul>
-            <% } else { %>
-            <h1>It's quiet here... <a href="/create-new-post" class="text-decoration-none">be the first to post!</a></h1>
-            <% } %>
-        </div>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        <% } else { %>
+        <h1>It's quiet here... <a href="/create-new-post" class="text-decoration-none">be the first to post!</a></h1>
+        <% } %>
+    </main>
     <script> 
         // Handles Edit/Save buttons
         const editButtons = document.querySelectorAll('.editBtn');
@@ -60,25 +81,38 @@
                 const bodyElement = document.getElementById(`post${index}Body`);
                 const editBodyElement = document.getElementById(`post${index}BodyEdit`);
                 const cancelEditBtn = document.querySelector(`.cancelEditBtn[data-index="${index}"]`);
+                const dateReadSpan = document.getElementById(`dateReadSpan${index}`);
+                const dateReadEdit = document.getElementById(`dateReadEdit${index}`);
+                const recommendSpan = document.getElementById(`recommendSpan${index}`);
+                const recommendEdit = document.getElementById(`recommendEdit${index}`);
 
                 if (button.innerText === "Edit") {
+                    // Adjusts the height of textarea object
                     const heightP = bodyElement.clientHeight;
-                    const numLines = Math.floor(heightP / 22);
-                    editBodyElement.rows = numLines;
+                    editBodyElement.rows = Math.floor(heightP / 22);
 
                     bodyElement.style.display = "none";
                     editBodyElement.style.display = "inline-block";
                     cancelEditBtn.style.display = "inline-block";
+                    dateReadSpan.style.display = "none";
+                    dateReadEdit.style.display = "inline-block";
+                    recommendSpan.style.display = "none";
+                    recommendEdit.style.display = "inline-block";
                     button.innerText = "Save";
                 } else {
+                    const postElement = document.getElementById(`post${index}`);
+                    const id = parseInt(postElement.getAttribute("data-index"));
+                    console.log(id);
                     const editedContent = editBodyElement.value;
+                    const editedDate = dateReadEdit.value;
+                    const editedRecommended = recommendEdit.value;
                     // POST request
                     fetch('/savePost', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
                         },
-                        body: `index=${index}&editedContent=${editedContent}`,
+                        body: `id=${id}&editedContent=${editedContent}&editedDate=${editedDate}&editedRecommended=${editedRecommended}`,
                     })
                     .then(response => {
                         if (!response.ok) {
@@ -90,10 +124,19 @@
                         // Handle the response from the server
                         if (data.success) {
                             const updatedTextBody = data.updatedTextBody;
-                            bodyElement.innerText = updatedTextBody[index];
+                            const updatedDate = data.updatedDate;
+                            const updatedRecommended = data.updatedRecommended;
                             
+                            bodyElement.innerText = updatedTextBody;
+                            dateReadSpan.innerText = updatedDate;
+                            recommendSpan.innerText = updatedRecommended;
+
                             bodyElement.style.display = "inline-block";
                             editBodyElement.style.display = "none";
+                            dateReadSpan.style.display = "inline-block";
+                            dateReadEdit.style.display = "none";
+                            recommendSpan.style.display = "inline-block";
+                            recommendEdit.style.display = "none";
                             cancelEditBtn.style.display = "none";
                             button.innerText = "Edit";
                         } else {
@@ -115,7 +158,15 @@
                 const bodyElement = document.getElementById(`post${index}Body`);
                 const editBodyElement = document.getElementById(`post${index}BodyEdit`);
                 const EditBtn = document.querySelector(`.editBtn[data-index="${index}"]`);
+                const dateReadSpan = document.getElementById(`dateReadSpan${index}`);
+                const dateReadEdit = document.getElementById(`dateReadEdit${index}`);
+                const recommendSpan = document.getElementById(`recommendSpan${index}`);
+                const recommendEdit = document.getElementById(`recommendEdit${index}`);
 
+                dateReadSpan.style.display = "inline-block";
+                dateReadEdit.style.display = "none";
+                recommendSpan.style.display = "inline-block";
+                recommendEdit.style.display = "none";
                 bodyElement.style.display = "inline-block";
                 editBodyElement.style.display = "none";
                 button.style.display = "none";
@@ -131,8 +182,10 @@
                 const textContainer = document.getElementById(`textContainer${index}`);
                 const confirmDeleteContainer = document.getElementById(`confirmDeleteContainer${index}`);
                 const mainButtonsContainer = document.getElementById(`mainButtonsContainer${index}`);
+                const imageColumnTextContainer = document.getElementById(`imageColumnText${index}`);
 
                 textContainer.classList.add("blur", "non-interactive");
+                imageColumnTextContainer.classList.add("blur", "non-interactive");
                 confirmDeleteContainer.style.display = "block";
                 mainButtonsContainer.style.display = "none";
             });
@@ -146,8 +199,10 @@
                 const textContainer = document.getElementById(`textContainer${index}`);
                 const confirmDeleteContainer = document.getElementById(`confirmDeleteContainer${index}`);
                 const mainButtonsContainer = document.getElementById(`mainButtonsContainer${index}`);
+                const imageColumnTextContainer = document.getElementById(`imageColumnText${index}`);
 
                 textContainer.classList.remove("blur", "non-interactive");
+                imageColumnTextContainer.classList.remove("blur", "non-interactive");
                 confirmDeleteContainer.style.display = "none";
                 mainButtonsContainer.style.display = "block";
             });

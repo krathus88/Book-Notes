@@ -87,3 +87,7 @@ ul {
     pointer-events: none;
     user-select: none;
 }
+
+.remove-top-right {
+    border-top-right-radius: 0 !important;
+}
