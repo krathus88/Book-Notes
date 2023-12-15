@@ -135,17 +135,18 @@ app.post("/deletePost", async (req, res) => {
 
     try {
         // Retrieve author_id before deleting
-        const authorId = await db.query("SELECT author_id FROM books WHERE id = $1", [id]);
-        
+        const result = await db.query("SELECT author_id FROM books WHERE id = $1", [id]);
+        const authorId = result.rows[0].author_id;
+
         // Delete Post
         await db.query("DELETE FROM books WHERE id = $1", [id]);
         
         // Count the remaining records with the same author_id
         const countResult = await db.query("SELECT COUNT(*) FROM books WHERE author_id = $1", [authorId]);
         const remainingRecords = parseInt(countResult.rows[0].count);
-
+        
+        // Deletes author record if there's no more book entries from that author
         if (remainingRecords === 0) {
-            // Deletes author record if there's no more book entries from that author
             await db.query("DELETE FROM authors WHERE id = $1", [authorId]);
         }
 
