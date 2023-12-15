@@ -39,7 +39,7 @@ app.get("/", async (req, res) => {
         const authorsQuery = await db.query("SELECT id, author_name FROM authors");
 
         // Retrieve all books excluding the ID
-        const booksQuery = await db.query("SELECT id, book_value_type, book_value, book_title, book_date_read, book_rating, author_id, user_input FROM books");
+        const booksQuery = await db.query("SELECT id, book_value_type, book_value, book_title, book_date_read, book_rating, author_id, user_input FROM books ORDER BY book_rating DESC, book_date_read DESC");
 
         res.render("index.ejs", { 
             activePage: activePage,
